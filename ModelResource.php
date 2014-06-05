@@ -37,7 +37,7 @@ class ModelResource extends Resource {
         }
     }
 
-    protected function getRelationValue(ApiRecord &$object, CBaseActiveRelation &$relation, $depth=0, $max_depth=2) {
+    protected function getRelationValue(CActiveRecord &$object, CBaseActiveRelation &$relation, $depth=0, $max_depth=2) {
         $result = [];
         if ($relation instanceof CStatRelation) {
             $result = $object->getRelated($relation->name);
@@ -78,7 +78,7 @@ class ModelResource extends Resource {
         return $result;
     }
 
-    protected function fetchModel(ApiRecord &$object) {
+    protected function fetchModel(CActiveRecord &$object) {
         $data = $object->getAttributes();
         foreach ($data as $property => $value) {
             if (is_null($value)) {
@@ -89,7 +89,7 @@ class ModelResource extends Resource {
         return $data;
     }
 
-    protected function fromModel(ApiRecord $object) {
+    protected function fromModel(CActiveRecord $object) {
 
         $data = $this->fetchModel($object);
         $rel_list = array_merge($this->with, $object->DefaultWith());
