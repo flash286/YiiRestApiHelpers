@@ -15,7 +15,7 @@ class ModelResource extends Resource {
     public function serialize() {
         if (!$this->isSerialized()){
             if (!isset($this->data)) {
-                throw new BaseError('Data of Resource is empty');
+                throw new Exception('Data of Resource is empty');
             }
             if (is_array($this->data)) {
                 $this->serialized_data = $this->fromModelList($this->data);
@@ -54,7 +54,7 @@ class ModelResource extends Resource {
         if ($depth <= $max_depth) {
             if (isset($relation->with) && !empty($relation->with)) {
                 if (!is_array($relation->with)) {
-                    throw new BaseError('Relation with must be array');
+                    throw new Exception('Relation with must be array');
                 }
                 foreach($relation->with as $withRelation) {
 
@@ -104,7 +104,7 @@ class ModelResource extends Resource {
                 $data[$relationName] = $this->getRelationValue($object, $relation);
             }
             else {
-                throw new BaseError(sprintf('Model %s has no relation %s', get_class($object), $relationName));
+                throw new Exception(sprintf('Model %s has no relation %s', get_class($object), $relationName));
             }
         }
         return $data;
